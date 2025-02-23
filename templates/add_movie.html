@@ -1,28 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Movie</title>
-</head>
-<body>
-    <h1>Add Movie for User ID: {{ user_id }}</h1>
-    <form method="POST">
-        <label for="name">Movie Name:</label>
-        <input type="text" id="name" name="name" required>
+<form method="POST">
+    <label for="name">Movie Name:</label>
+    <input type="text" name="name" required>
 
-        <label for="director">Director:</label>
-        <input type="text" id="director" name="director" required>
-
-        <label for="year">Year:</label>
-        <input type="number" id="year" name="year" required>
-
-        <label for="rating">Rating:</label>
-        <input type="number" step="0.1" id="rating" name="rating" required>
-
-        <button type="submit">Add Movie</button>
-    </form>
-    <br>
-    <a href="{{ url_for('user_movies', user_id=user_id) }}">Back to Movies</a>
-</body>
-</html>
+    <button type="submit">Fetch & Add Movie</button>
+</form>

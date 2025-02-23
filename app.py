@@ -1,13 +1,14 @@
 
 #This is the main Flask application file, handling routes and rendering templates.
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import flash, Flask, render_template, request, redirect, url_for
 from datamanager.data_models import db
 from datamanager.data_management import SQLiteDataManager
 import os
 
 # Flask app initialization
 app = Flask(__name__)
+app.secret_key = "very_secret_key"
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(BASE_DIR, "data_storage", "movies.db")}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -41,12 +42,12 @@ def add_user():
 def add_movie(user_id):
     if request.method == 'POST':
         name = request.form['name']
-        director = request.form['director']
-        year = request.form['year']
-        rating = request.form['rating']
-        data_manager.add_movie(user_id, name, director, year, rating)
+        movie = data_manager.add_movie(user_id, name)
+        if movie:
+            flash("Movie added successfully!", "success")
         return redirect(url_for('user_movies', user_id=user_id))
     return render_template('add_movie.html', user_id=user_id)
+
 
 @app.route('/users/<int:user_id>/update_movie/<int:movie_id>', methods=['GET', 'POST'])
 def update_movie(user_id, movie_id):
