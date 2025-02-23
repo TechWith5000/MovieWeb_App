@@ -25,12 +25,17 @@ def fetch_movie_details(movie_name):
                 year = int(year_str.split("–")[0])  # Take the first year if it's a range
             except ValueError:
                 year = 0  # Default to 0 if conversion fails
+            # Extract rating safely
+            try:
+                rating = float(data.get("imdbRating", 0))
+            except ValueError:
+                rating = 0.0 # Default to 0 if conversion fails
 
             return {
                 "name": data.get("Title", movie_name),
                 "director": data.get("Director", "Unknown"),
                 "year": year,
-                "rating": float(data.get("imdbRating", 0))
+                "rating": rating
             }
         else:
             flash("Movie not found in OMDb.", "warning")
