@@ -1,6 +1,15 @@
-<form method="POST">
+{% extends "base.html" %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+    <h1>Add Movie</h1>
+    <form method="POST">
     <label for="name">Movie Name:</label>
     <input type="text" name="name" required>
 
     <button type="submit">Fetch & Add Movie</button>
 </form>
+
+{% endblock %}
+
