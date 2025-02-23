@@ -65,5 +65,28 @@ def delete_movie(user_id, movie_id):
     data_manager.delete_movie(movie_id)
     return redirect(url_for('user_movies', user_id=user_id))
 
+@app.errorhandler(404)
+def page_not_found(error):
+    """
+    Handles the 404 error and renders the 404.html template.
+    Arguments received:
+        error: Error object.
+    Returns:
+        tuple: A tuple containing the rendered template and the HTTP status code.
+    """
+    return render_template('404.html'), 404
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    """
+    Handles the 500 error and renders the 500.html template.
+    Arguments received:
+        error: Error object.
+    Returns:
+        tuple: A tuple containing the rendered template and the HTTP status code.
+    """
+    return render_template('500.html'), 500
